@@ -9,7 +9,9 @@
 
         <TextBlock Grid.Row="0" Text="Liste des vols ouverts" Margin="10" FontWeight="Bold" />
 
-        <DataGrid Grid.Row="1" Name="dtg" AutoGenerateColumns="False" ItemsSource="{Binding ListeVols}" CanUserAddRows="False" >
+        <DataGrid Grid.Row="1" Name="dtg" AutoGenerateColumns="False" CanUserAddRows="False"
+                  ItemsSource="{Binding ListeVols}" 
+                  IsSynchronizedWithCurrentItem="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Compagnie" Binding="{Binding CompagnieName}" IsReadOnly="True" />
                 <DataGridTextColumn Header="Départ"    Binding="{Binding AeroportDepart}" IsReadOnly="True" />

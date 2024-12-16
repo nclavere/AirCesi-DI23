@@ -29,7 +29,10 @@ internal class VolsViewModel : INotifyPropertyChanged
 
                 //Initialisation de ICollectionView sur la liste observable
                 listeVolsView = CollectionViewSource.GetDefaultView(listeVols);
-    
+
+                //Initialisation la notification de changement du current item (solution globale)
+                listeVolsView.CurrentChanged += (sender, e) => OnPropertyChanged(nameof(VolSelected));
+
 
             }
             return listeVols; 
@@ -56,11 +59,21 @@ internal class VolsViewModel : INotifyPropertyChanged
     {
         DetailVisibility= Visibility.Visible;
         OnPropertyChanged(nameof(DetailVisibility));
+
+        //Initialisation la notification de changement du current item
+        //(solution spécifique si on utilise pas la solutio globale)
+        //OnPropertyChanged(nameof(VolSelected)); 
+    }
+
+    internal void CacherDetailVol()
+    {
+        DetailVisibility = Visibility.Collapsed;
+        OnPropertyChanged(nameof(DetailVisibility));
     }
 
     internal void AjouterUnVol()
     {
-        listeVols.Add(new VolDto
+        listeVols!.Add(new VolDto
         {
             Id = 1,
             DateDepart = DateTime.Now,

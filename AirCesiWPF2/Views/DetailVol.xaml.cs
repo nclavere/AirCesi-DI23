@@ -23,4 +23,10 @@ public partial class DetailVol : UserControl
     {
         InitializeComponent();
     }
+
+    private void Annuler_Click(object sender, RoutedEventArgs e)
+    {
+        var vm = (ViewModels.VolsViewModel)this.DataContext;
+        vm.CacherDetailVol();
+    }
 }
