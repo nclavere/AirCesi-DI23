@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="AirCesiWPF2.Views.ListeVols"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Liste des vols ouverts" Margin="10" FontWeight="Bold" />
+
+        <DataGrid Grid.Row="1" Name="dtg" AutoGenerateColumns="False" ItemsSource="{Binding ListeVols}" CanUserAddRows="False" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Compagnie" Binding="{Binding CompagnieName}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Départ"    Binding="{Binding AeroportDepart}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Arrivée"   Binding="{Binding AeroportArrivee}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Date"      Binding="{Binding DateDepart, StringFormat='{}{0:dd/MM/yyyy HH:mm}'}" IsReadOnly="True" />
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Détail" Click="Detail_Click" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

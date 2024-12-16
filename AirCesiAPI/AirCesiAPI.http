@@ -1,0 +1,6 @@
+@AirCesiAPI_HostAddress = http://localhost:5022
+
+GET {{AirCesiAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,29 @@
+﻿<Window xmlns:Views="clr-namespace:AirCesiWPF2.Views"  x:Class="AirCesiWPF2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Style="{StaticResource MaterialDesignWindow}"
+        Title="Air Cesi" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
+            <MenuItem Header="Nouveau vol" Click="NouveauVol_Click" />
+        </Menu>
+
+        <TabControl Grid.Row="1">
+
+            <TabItem Header="Liste des vols">
+                <Grid>
+                    <Views:ListeVols />
+                    <Views:DetailVol Visibility="{Binding DetailVisibility}"/>
+                </Grid>                
+            </TabItem>
+            
+        </TabControl>
+        
+
+    </Grid>
+</Window>
