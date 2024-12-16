@@ -1,1 +1,3 @@
 # AirCesi-DI23
+
+Projet fil rouge du cours C# pour les DI 23 ...
