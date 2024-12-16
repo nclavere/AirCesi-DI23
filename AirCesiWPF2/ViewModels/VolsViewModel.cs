@@ -5,6 +5,10 @@ using System.Windows;
 using System.Windows.Data;
 
 namespace AirCesiWPF2.ViewModels;
+
+/// <summary>
+/// ViewModel de la liste des vols
+/// </summary>
 internal class VolsViewModel : INotifyPropertyChanged
 {
 	private ObservableCollection<VolDto>? listeVols;
