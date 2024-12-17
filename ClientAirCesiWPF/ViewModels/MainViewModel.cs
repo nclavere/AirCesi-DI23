@@ -1,4 +1,5 @@
 ﻿using AirCesiModel.Dto;
+using ClientAirCesiWPF.Properties;
 using ClientAirCesiWPF.Service;
 using System;
 using System.Collections.Generic;
@@ -58,6 +59,8 @@ internal class MainViewModel : ViewModelBase
 
     public MainViewModel()
     {
+        var connexionstring = Settings.Default.ConnexionString;
+
         SearchCommand = new RelayCommand(() =>
         {
             RechercherLesVols(DateSelected);
