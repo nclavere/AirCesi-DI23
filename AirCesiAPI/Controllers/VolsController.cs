@@ -23,6 +23,9 @@ namespace AirCesiAPI.Controllers
         public async Task<ActionResult<IEnumerable<VolDto>>> SearchVols(DateTime dateJour)
         {
             return await _context.Vols
+                .Include(v => v.AeroportDepart)
+                .Include(v => v.AeroportArrivee)
+                .Include(v => v.Compagnie)
                 .Where(v => v.DateDepart.Date >= dateJour.Date)
                 .Select(vol => new VolDto
                 {
@@ -30,6 +33,9 @@ namespace AirCesiAPI.Controllers
                     DateArrivee = vol.DateArrivee,
                     DateDepart = vol.DateDepart,
                     EstOuvert = vol.EstOuvert,
+                    CompagnieName = vol.Compagnie!.Nom,
+                    AeroportArrivee = vol.AeroportArrivee!.Nom,
+                    AeroportDepart = vol.AeroportDepart!.Nom
                 }).ToListAsync();
         }
 

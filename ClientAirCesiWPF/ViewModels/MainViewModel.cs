@@ -20,6 +20,7 @@ internal class MainViewModel
             return await HttpClientService.GetVolLights(dateJour);
         }).ContinueWith(t =>
         {
+            ListeVols.Clear();
             foreach (var vol in t.Result)
             {
                 ListeVols.Add(vol);
