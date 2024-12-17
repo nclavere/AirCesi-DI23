@@ -27,6 +27,7 @@ internal class MainViewModel : ViewModelBase
             foreach (var vol in t.Result)
             {
                 var vm = new VolViewModel(vol);
+                //evenement de demande de vue
                 vm.ViewRequested += (o, e) =>
                 {
                     VolSelected = vm;
@@ -34,6 +35,13 @@ internal class MainViewModel : ViewModelBase
                     OnPropertyChanged(nameof(VolSelected));
                     OnPropertyChanged(nameof(DetailVolVisibility));
                 };
+                //evenement de demande de fermeture
+                vm.CloseRequested += (o, e) =>
+                {
+                    DetailVolVisibility = Visibility.Collapsed;
+                    OnPropertyChanged(nameof(DetailVolVisibility));
+                };
+
                 ListeVols.Add(vm);
             }
 
