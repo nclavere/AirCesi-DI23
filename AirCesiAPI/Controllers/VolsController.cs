@@ -19,6 +19,22 @@ namespace AirCesiAPI.Controllers
 
         // GET: api/Vols
         [HttpGet]
+        [Route("search/{dateJour}")]
+        public async Task<ActionResult<IEnumerable<VolDto>>> SearchVols(DateTime dateJour)
+        {
+            return await _context.Vols
+                .Where(v => v.DateDepart.Date >= dateJour.Date)
+                .Select(vol => new VolDto
+                {
+                    Id = vol.Id,
+                    DateArrivee = vol.DateArrivee,
+                    DateDepart = vol.DateDepart,
+                    EstOuvert = vol.EstOuvert,
+                }).ToListAsync();
+        }
+
+        // GET: api/Vols
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<VolDto>>> GetVols()
         {
             return await _context.Vols.Select(vol => new VolDto
