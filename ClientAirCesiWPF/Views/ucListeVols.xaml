@@ -18,11 +18,11 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding DateDepart, StringFormat='{}{0:dd/MM/yyyy HH:mm}'}" FontWeight="Bold" />
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding AeroportDepart}" Margin="40 0 0 0" />
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding AeroportArrivee}" Margin="40 0 0 0" />
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Vol.DateDepart, StringFormat='{}{0:dd/MM/yyyy HH:mm}'}" FontWeight="Bold" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Vol.AeroportDepart}" Margin="40 0 0 0" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Vol.AeroportArrivee}" Margin="40 0 0 0" />
 
-                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding CompagnieName}" />
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Vol.CompagnieName}" />
 
                         <TextBlock Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Text="Durée du voyage :"
                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -32,7 +32,8 @@
                             <TextBlock Text="minutes" />
                         </StackPanel>
 
-                        <Button Grid.Row="0" Grid.RowSpan="3" Grid.Column="3" Content="Voir les détails du vol" />
+                        <Button Grid.Row="0" Grid.RowSpan="3" Grid.Column="3" Content="Voir les détails du vol"
+                                Command="{Binding ViewCommand}"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
