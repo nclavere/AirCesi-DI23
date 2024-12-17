@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="ClientAirCesiWPF.Views.ucListeVols"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <Grid>
+        <ListBox Grid.Row="2" ItemsSource="{Binding ListeVols}" HorizontalAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding DateDepart, StringFormat='{}{0:dd/MM/yyyy HH:mm}'}" FontWeight="Bold" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding AeroportDepart}" Margin="40 0 0 0" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding AeroportArrivee}" Margin="40 0 0 0" />
+
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding CompagnieName}" />
+
+                        <TextBlock Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Text="Durée du voyage :"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <materialDesign:PackIcon Kind="ClockTimeEightOutline"/>
+                            <TextBlock Text="{Binding Duree}" Margin="5 0" />
+                            <TextBlock Text="minutes" />
+                        </StackPanel>
+
+                        <Button Grid.Row="0" Grid.RowSpan="3" Grid.Column="3" Content="Voir les détails du vol" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+            <!-- ListBox ItemTemplate stretch horizontally -->
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+
+    </Grid>
+</UserControl>
