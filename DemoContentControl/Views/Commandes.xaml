@@ -6,7 +6,12 @@
              xmlns:local="clr-namespace:DemoContentControl.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <StackPanel>
         <TextBlock Text="{Binding Titre}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-    </Grid>
+
+        <Button HorizontalAlignment="Center">
+            <TextBlock Text="Nouvelle commande" TextDecorations="Underline" />
+        </Button>
+        
+    </StackPanel>
 </UserControl>

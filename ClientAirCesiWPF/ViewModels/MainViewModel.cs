@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ClientAirCesiWPF.ViewModels;
-internal class MainViewModel
+internal class MainViewModel : ViewModelBase
 {
     public ObservableCollection<VolDto> ListeVols { get; set; } = new();
     public int NombreListeVols { get => ListeVols.Count(); }
@@ -25,6 +25,9 @@ internal class MainViewModel
             {
                 ListeVols.Add(vol);
             }
+
+            OnPropertyChanged(nameof(NombreListeVols));
+
         }, TaskScheduler.FromCurrentSynchronizationContext());
     }
 
