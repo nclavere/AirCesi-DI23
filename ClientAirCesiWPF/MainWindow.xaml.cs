@@ -1,4 +1,5 @@
-﻿using ClientAirCesiWPF.ViewModels;
+﻿using ClientAirCesiWPF.Service;
+using ClientAirCesiWPF.ViewModels;
 using System.Windows;
 
 namespace ClientAirCesiWPF;
@@ -11,7 +12,9 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
 
-        this.DataContext = new MainViewModel();        
+        this.DataContext = new MainViewModel();
+
+        Task.Run(async () => await HttpClientService.Login("user", "password"));
     }
 
     //private void Search_Click(object sender, RoutedEventArgs e)
