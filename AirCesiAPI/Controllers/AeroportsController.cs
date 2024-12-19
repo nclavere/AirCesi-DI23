@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AirCesiModel.Context;
 using AirCesiModel.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AirCesiAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AeroportsController : ControllerBase

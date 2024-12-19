@@ -1,11 +1,13 @@
 ﻿using AirCesiModel.Context;
 using AirCesiModel.Dto;
 using AirCesiModel.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace AirCesiAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class VolsController : ControllerBase

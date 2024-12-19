@@ -1,8 +1,9 @@
 ﻿using AirCesiModel.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AirCesiModel.Context;
-public class AirCesiContext : DbContext
+public class AirCesiContext(DbContextOptions<AirCesiContext> options) : IdentityDbContext<User>(options)
 {
     public DbSet<Aeroport> Aeroports { get; set; }
     public DbSet<Client> Clients { get; set; }

@@ -25,7 +25,7 @@ namespace ClientAirCesiWPF.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("a chaine de connexion")]
+        [global::System.Configuration.DefaultSettingValueAttribute("La chaine de connexion")]
         public string ConnexionString {
             get {
                 return ((string)(this["ConnexionString"]));
