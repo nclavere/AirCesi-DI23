@@ -11,44 +11,48 @@
 
 <h1>Liste des vols ouverts</h1>
 
-<input type="date" @bind="dateFilter" />
+<input type="date" @bind="dateFilter" @oninput="OnDateChange" />
 
-<QuickGrid Class="table" Items="FilteredVols" Pagination="pagination">
-    <PropertyColumn Property="voldto => voldto.CompagnieName" Title="Compagnie" Sortable="true" />
-    <PropertyColumn Property="voldto => voldto.DateDepart" Title="Départ" Sortable="true" />
-    <PropertyColumn Property="voldto => voldto.AeroportDepart" Title="De l'aéroport" Sortable="true" />
-    <PropertyColumn Property="voldto => voldto.DateArrivee" Title="Arrivée" Sortable="true" />
-    <PropertyColumn Property="voldto => voldto.AeroportArrivee" Title="A l'aéroport" Sortable="true" />
+<div>
+<QuickGrid ItemsProvider="volsRecallProvider" Class="table" Pagination="pagination">
+    <PropertyColumn Property="voldto => voldto.CompagnieName" Title="Compagnie" />
+    <PropertyColumn Property="voldto => voldto.DateDepart" Title="Départ"  />
+    <PropertyColumn Property="voldto => voldto.AeroportDepart" Title="De l'aéroport"  />
+    <PropertyColumn Property="voldto => voldto.DateArrivee" Title="Arrivée" />
+    <PropertyColumn Property="voldto => voldto.AeroportArrivee" Title="A l'aéroport" />
 </QuickGrid>
-<Paginator State="pagination" />
+</div>
 
 @code {
 
     private DateTime dateFilter = DateTime.Now;
-    private PaginationState pagination = new PaginationState { ItemsPerPage = 3 };
-    
-    private List<VolDto> vols = new();
-    private async Task LoadVols()
-    {
-        vols = await ApiService.SearchVols(dateFilter);
-    }
 
-    private IQueryable<VolDto> FilteredVols
-    {
-        get
-        {
-            if (vols == null)
-            {
-                //vols = LoadVols().Result;
-                return new List<VolDto>().AsQueryable();
-            }
-            return vols.AsQueryable();
-        } 
-    }
+    private PaginationState pagination = new PaginationState { ItemsPerPage = 3 };
+
+    private GridItemsProvider<VolDto>? volsRecallProvider;
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadVols();
+        volsRecallProvider = async req =>
+        {
+            var vols = await ApiService.SearchVols(dateFilter);
+            vols = vols.OrderBy(v => v.DateDepart).ToList();
+
+            return GridItemsProviderResult.From(
+                items: vols,
+                totalItemCount: vols.Count());
+        };
     }
 
+
+    private async Task OnDateChange(ChangeEventArgs e)
+    {
+        var newDate = DateTime.Parse(e.Value.ToString());
+        if (newDate != dateFilter)
+        {
+            dateFilter = newDate;
+            await pagination.SetCurrentPageIndexAsync(0);
+            await InvokeAsync(StateHasChanged);
+        }
+    }
 }
