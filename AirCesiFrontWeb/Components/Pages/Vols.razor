@@ -1,0 +1,54 @@
+﻿@page "/vols"
+@rendermode InteractiveServer
+
+@using AirCesiFrontWeb.Services
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using AirCesiFrontWeb.ModelDtos
+@inject ApiService ApiService
+
+<PageTitle>Vols</PageTitle>
+
+<h1>Liste des vols ouverts</h1>
+
+<input type="date" @bind="dateFilter" />
+
+<QuickGrid Class="table" Items="FilteredVols" Pagination="pagination">
+    <PropertyColumn Property="voldto => voldto.CompagnieName" Title="Compagnie" Sortable="true" />
+    <PropertyColumn Property="voldto => voldto.DateDepart" Title="Départ" Sortable="true" />
+    <PropertyColumn Property="voldto => voldto.AeroportDepart" Title="De l'aéroport" Sortable="true" />
+    <PropertyColumn Property="voldto => voldto.DateArrivee" Title="Arrivée" Sortable="true" />
+    <PropertyColumn Property="voldto => voldto.AeroportArrivee" Title="A l'aéroport" Sortable="true" />
+</QuickGrid>
+<Paginator State="pagination" />
+
+@code {
+
+    private DateTime dateFilter = DateTime.Now;
+    private PaginationState pagination = new PaginationState { ItemsPerPage = 3 };
+    
+    private List<VolDto> vols = new();
+    private async Task LoadVols()
+    {
+        vols = await ApiService.SearchVols(dateFilter);
+    }
+
+    private IQueryable<VolDto> FilteredVols
+    {
+        get
+        {
+            if (vols == null)
+            {
+                //vols = LoadVols().Result;
+                return new List<VolDto>().AsQueryable();
+            }
+            return vols.AsQueryable();
+        } 
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadVols();
+    }
+
+}

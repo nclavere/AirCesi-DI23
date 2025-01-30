@@ -14,7 +14,7 @@ public partial class MainWindow : Window
 
         this.DataContext = new MainViewModel();
 
-        Task.Run(async () => await HttpClientService.Login("user", "password"));
+        Task.Run(async () => await HttpClientService.Login("nclavere@adista.fr", "aZ123456@"));
     }
 
     //private void Search_Click(object sender, RoutedEventArgs e)

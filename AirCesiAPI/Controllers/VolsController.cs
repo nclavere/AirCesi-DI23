@@ -45,20 +45,27 @@ namespace AirCesiAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<VolDto>>> GetVols()
         {
-            return await _context.Vols.Select(vol => new VolDto
-            {
-                Id = vol.Id,
-                DateArrivee = vol.DateArrivee,
-                DateDepart = vol.DateDepart,
-                EstOuvert = vol.EstOuvert,
-            }).ToListAsync();
+            return await _context.Vols
+                .Include(v => v.AeroportDepart)
+                .Include(v => v.AeroportArrivee)
+                .Include(v => v.Compagnie)
+                .Select(vol => new VolDto
+                {
+                    Id = vol.Id,
+                    DateArrivee = vol.DateArrivee,
+                    DateDepart = vol.DateDepart,
+                    EstOuvert = vol.EstOuvert,
+                    CompagnieName = vol.Compagnie!.Nom,
+                    AeroportArrivee = vol.AeroportArrivee!.Nom,
+                    AeroportDepart = vol.AeroportDepart!.Nom
+                }).ToListAsync();
         }
 
         // GET: api/Vols/5
         [HttpGet("{id}")]
         public async Task<ActionResult<VolDto>> GetVol(int id)
         {
-            var vol = await _context.Vols                
+            var vol = await _context.Vols
                 .Include(v => v.AeroportDepart)
                 .Include(v => v.AeroportArrivee)
                 .Include(v => v.Compagnie)
@@ -74,8 +81,8 @@ namespace AirCesiAPI.Controllers
                 Id = vol.Id,
                 DateArrivee = vol.DateArrivee,
                 DateDepart = vol.DateDepart,
-                EstOuvert = vol.EstOuvert,  
-                CompagnieName = vol.Compagnie?.Nom ,
+                EstOuvert = vol.EstOuvert,
+                CompagnieName = vol.Compagnie?.Nom,
                 AeroportArrivee = vol.AeroportArrivee?.Nom,
                 AeroportDepart = vol.AeroportDepart?.Nom
             };
